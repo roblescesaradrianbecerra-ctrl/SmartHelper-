@@ -18,8 +18,8 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Dar permisos al compilador
-      run: chmod +x gradlew
+    - name: Instalar Gradle
+      uses: gradle/gradle-build-action@v3
 
     - name: Compilar el archivo AAB
-      run: ./gradlew bundleRelease
+      run: gradle bundleRelease
