@@ -1,14 +1,9 @@
 name: Build Android AAB
-
-on:
-  push:
-    branches: [ main, principal ]
-  workflow_dispatch:
+on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -19,16 +14,5 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Give execute permission to Gradle wrapper
-        run: |
-          chmod +x gradlew
-          ls -la
-
       - name: Build AAB
-        run: ./gradlew bundleRelease
-
-      - name: Upload AAB
-        uses: actions/upload-artifact@v4
-        with:
-          name: SmartHelper-AAB
-          path: app/build/outputs/bundle/release/*.aab
+        run: ./gradlew :app:bundleDebug
