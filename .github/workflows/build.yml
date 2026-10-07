@@ -14,10 +14,8 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      # Damos permiso directo al archivo que ya está en tu repositorio
-      - name: Grant execute permission
-        run: chmod +x gradlew
-
-      # Construimos sin complicaciones
-      - name: Build
-        run: ./gradlew assembleDebug
+      # Esta acción oficial descarga todo lo necesario y compila
+      - name: Build AAB with Gradle
+        uses: gradle/gradle-build-action@v3
+        with:
+          arguments: :app:bundleDebug
