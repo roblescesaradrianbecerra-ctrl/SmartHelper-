@@ -15,5 +15,4 @@ jobs:
           distribution: 'temurin'
 
       - name: Build AAB
-        run: ./gradlew :app:bundleDebug
- 
+        run: gradle :app:bundleDebug
