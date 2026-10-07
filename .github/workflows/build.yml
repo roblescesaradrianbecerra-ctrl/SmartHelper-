@@ -14,13 +14,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      # Esto genera el archivo gradlew automáticamente
-      - name: Setup Gradle Wrapper
-        run: gradle wrapper
-
-      # Ahora ya existirá el archivo
+      # Damos permiso directo al archivo que ya está en tu repositorio
       - name: Grant execute permission
         run: chmod +x gradlew
 
-      - name: Build AAB
-        run: ./gradlew :app:bundleDebug
+      # Construimos sin complicaciones
+      - name: Build
+        run: ./gradlew assembleDebug
