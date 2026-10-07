@@ -16,3 +16,4 @@ jobs:
 
       - name: Build AAB
         run: ./gradlew :app:bundleDebug
+ 
