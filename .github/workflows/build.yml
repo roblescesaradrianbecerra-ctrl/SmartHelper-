@@ -1,29 +1,34 @@
 name: Build Android AAB
+
 on:
   push:
     branches: [ main, principal ]
   workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Preparar Gradle
+
+      - name: Give execute permission to Gradle wrapper
         run: |
-          if [ ! -f "./gradlew" ]; then
-            mkdir -p gradle/wrapper
-            curl -fsSL https://raw.githubusercontent.com/gradle/gradle/v8.5.0/gradle/wrapper/gradlew -o ./gradlew
-            curl -fsSL https://raw.githubusercontent.com/gradle/gradle/v8.5.0/gradle/wrapper/gradle-wrapper.jar -o ./gradle/wrapper/gradle-wrapper.jar
-            curl -fsSL https://raw.githubusercontent.com/gradle/gradle/v8.5.0/gradle/wrapper/gradle-wrapper.properties -o ./gradle/wrapper/gradle-wrapper.properties
-          fi
-          chmod +x ./gradlew
-      - name: Compilar AAB
+          chmod +x gradlew
+          ls -la
+
+      - name: Build AAB
         run: ./gradlew bundleRelease
-      - uses: actions/upload-artifact@v4
+
+      - name: Upload AAB
+        uses: actions/upload-artifact@v4
         with:
           name: SmartHelper-AAB
           path: app/build/outputs/bundle/release/*.aab
